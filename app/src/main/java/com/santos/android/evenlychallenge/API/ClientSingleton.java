@@ -38,6 +38,7 @@ public class ClientSingleton extends Application {
     private static final String REQUEST_HEADER = "https://api.foursquare.com/v2/venues/search?ll=";
     private static final String CLIENT_ID = "05XL1PRM0WJWFWKMZ2ZF44DGK5UHQB3JAPRP4SNWVATDOUL5";
     private static final String CLIENT_SECRET = "OR5RBTJKHM0LGCIPOFWJ4GSABL3KWT3Y212R5O0KQTER2XTR";
+    private static final String VENUE_DETAILS_REQUEST = "https://api.foursquare.com/v2/venues/";
     private static final double LATITUDE =  52.500342;
     private static final double LONGITUDE =  13.425170;
     private static final int LIMIT = 10;
@@ -112,5 +113,13 @@ public class ClientSingleton extends Application {
                 + "&client_secret=" + CLIENT_SECRET + "&v=" + result + "&radius=500" +
                 "&sortByDistance=1"  + "&fields=" + "id,name,location,like,dislike,categories";
         //
+    }
+
+    public String getVenueDetails(String venueId){
+        Date currentTime = Calendar.getInstance().getTime();
+        String date = new SimpleDateFormat("yyyy/MM/dd").format(currentTime);
+        String result = date.replaceAll("/", "");
+        return  VENUE_DETAILS_REQUEST + venueId + "?client_id=" + CLIENT_ID
+                + "&client_secret=" + CLIENT_SECRET + "&v=" + result;
     }
 }

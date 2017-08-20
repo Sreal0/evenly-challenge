@@ -15,6 +15,7 @@ public class Venue {
     private boolean mDislike;
     private Categories[] mCategories;
     private Contact mContact;
+    private double mRating;
 
     public String getId() {
         return mId;
@@ -71,4 +72,11 @@ public class Venue {
         mContact = contact;
     }
 
+    public double getRating() {
+        return mRating;
+    }
+    @JsonSetter("rating")
+    public void setRating(double rating) {
+        mRating = rating;
+    }
 }

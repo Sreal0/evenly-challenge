@@ -1,6 +1,7 @@
 package com.santos.android.evenlychallenge.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -23,6 +24,7 @@ import java.util.List;
 
 public class VenuesAdapter extends RecyclerView.Adapter<VenuesAdapter.VenueViewHolder> {
     private Context mContext;
+    private final String INTENT = "position";
     private ClientSingleton sClientSingleton;
     private List<Venue> mVenueList;
     private TextView mVenueName;
@@ -73,8 +75,8 @@ public class VenuesAdapter extends RecyclerView.Adapter<VenuesAdapter.VenueViewH
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    ((ChallengeLauncherActivity)mContext).startDetailsFragment();
-
+                    ((ChallengeLauncherActivity)mContext).requestVenueDetailsFromAPI(getAdapterPosition());
+                    //((ChallengeLauncherActivity)mContext).startDetailsFragment(getAdapterPosition());
                 }
             });
         }

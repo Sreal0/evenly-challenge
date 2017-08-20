@@ -43,6 +43,7 @@ public class ChallengeLauncherActivity extends AppCompatActivity {
     private ClientSingleton sClientSingleton;
     private Toolbar mToolbar;
     private List<Venue> mVenueList;
+    private Venue mVenue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,6 +123,51 @@ public class ChallengeLauncherActivity extends AppCompatActivity {
         sClientSingleton.addToRequestQueue(jsObjRequest);
     }
 
+    public void requestVenueDetailsFromAPI(int position){
+        String id = sClientSingleton.getVenueList().get(position).getId();
+        String url = sClientSingleton.getVenueDetails(id);
+        Log.d(TAG, url);
+
+        final JsonObjectRequest jsObjRequest = new JsonObjectRequest
+                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        ObjectMapper mapper = new ObjectMapper();
+                        try {
+                            //Response Object
+                            JSONObject responseObject = response.getJSONObject("response");
+                            JSONObject venueObject = responseObject.getJSONObject("venue");
+
+                            String data = venueObject.toString();
+                            //Location data
+                            JSONObject locationObject = venueObject.getJSONObject("location");
+                            String locationData = locationObject.toString();
+                            Location location = mapper.readValue(locationData, Location.class);
+                            mVenue = mapper.readValue(data, Venue.class);
+                            mVenue.setLocation(location);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        } catch (JsonParseException e) {
+                            e.printStackTrace();
+                        } catch (JsonMappingException e) {
+                            e.printStackTrace();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        //here
+                        startDetailsFragment();
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getApplicationContext(), "Error loading data", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+        jsObjRequest.setShouldCache(true);
+        sClientSingleton.addToRequestQueue(jsObjRequest);
+    }
+
     public void startDetailsFragment(){
         FragmentManager manager = getSupportFragmentManager();
         Fragment detailsFragment = manager.findFragmentByTag(VenueDetailsFragment.TAG);
@@ -129,5 +175,9 @@ public class ChallengeLauncherActivity extends AppCompatActivity {
                 .replace(R.id.frame_layout, VenueDetailsFragment.newInstance(), VenueDetailsFragment.TAG)
                 .addToBackStack(VenueDetailsFragment.TAG)
                 .commit();
+    }
+
+    public Venue getVenue(){
+        return mVenue;
     }
 }
