@@ -111,7 +111,7 @@ public class ClientSingleton extends Application {
         Log.d(TAG, date);
         return REQUEST_HEADER + LATITUDE + "," + LONGITUDE + "&client_id=" + CLIENT_ID
                 + "&client_secret=" + CLIENT_SECRET + "&v=" + result + "&radius=500" +
-                "&sortByDistance=1"  + "&fields=" + "id,name,location,like,dislike,categories";
+                "&sortByDistance=1&limit=50";
         //
     }
 

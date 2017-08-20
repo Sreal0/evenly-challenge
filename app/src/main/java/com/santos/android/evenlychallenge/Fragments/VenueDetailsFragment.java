@@ -1,7 +1,10 @@
 package com.santos.android.evenlychallenge.Fragments;
 
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +33,8 @@ public class VenueDetailsFragment extends Fragment implements OnMapReadyCallback
     private TextView mVenuaAddress;
     private TextView mVenueCategory;
     private TextView mVenueContact;
+    private TextView mVenueLike;
+    private TextView mVenueDislike;
 
     public static VenueDetailsFragment newInstance() {
         VenueDetailsFragment fragment = new VenueDetailsFragment();
@@ -55,6 +60,8 @@ public class VenueDetailsFragment extends Fragment implements OnMapReadyCallback
         mVenueCategory = (TextView)view.findViewById(R.id.txt_category);
         mVenueContact = (TextView)view.findViewById(R.id.txtContact);
         mVenueName = (TextView)view.findViewById(R.id.txt_name);
+        mVenueLike = (TextView)view.findViewById(R.id.txtLike);
+        mVenueDislike = (TextView)view.findViewById(R.id.txtDislike);
 
         mVenue = ((ChallengeLauncherActivity)getActivity()).getVenue();
         setupTextViews();
@@ -77,15 +84,33 @@ public class VenueDetailsFragment extends Fragment implements OnMapReadyCallback
         }else {
             mVenueCategory.setText("n/a");
         }
+        if(mVenue.isLike()){
+            mVenueLike.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimaryDark));
+        }
+        if (mVenue.isDislike()){
+            mVenueDislike.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimaryDark));
+        }
+        //To be able to register a like:
+        /*Set an onClickListener that saves the venueId
+        * send a request to the api https://api.foursquare.com/v2/venues/VENUE_ID/like
+        * */
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mGoogleMap = googleMap;
+
         LatLng position = new LatLng(mVenue.getLocation().getLat(), mVenue.getLocation().getLon());
+        Log.d(TAG, position.toString());
+        mGoogleMap.addMarker(new MarkerOptions().position(EVENLY_HQ).title("Evenly HQ"));
         mGoogleMap.addMarker(new MarkerOptions().position(position).title(mVenue.getName()));
-        //mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(EVENLY_HQ, 15));
-        mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(position,14));
+        mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(position,16));
+        /*For the sake of time directions has not been implemented.
+        * To implement direction a request must be made to the following api:
+        * https://maps.googleapis.com/maps/api/directions/ along with start and end point, api key
+        * and format required. The request would have been made with Volley. If the request was successful
+        * then I would have to parse the received data (an array "steps" would have the required data) and
+        * draw then draw the route between each step*/
 
     }
 }

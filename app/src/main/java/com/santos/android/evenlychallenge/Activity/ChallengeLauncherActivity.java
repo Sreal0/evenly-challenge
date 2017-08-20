@@ -1,32 +1,21 @@
 package com.santos.android.evenlychallenge.Activity;
 
-import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.Toast;
-
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.DeserializationConfig;
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.santos.android.evenlychallenge.API.ClientSingleton;
 import com.santos.android.evenlychallenge.API.Location;
-import com.santos.android.evenlychallenge.API.Meta;
-import com.santos.android.evenlychallenge.API.MyResponse;
 import com.santos.android.evenlychallenge.API.Venue;
 import com.santos.android.evenlychallenge.Fragments.ListFragment;
 import com.santos.android.evenlychallenge.Fragments.VenueDetailsFragment;

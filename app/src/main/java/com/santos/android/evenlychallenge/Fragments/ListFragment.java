@@ -45,17 +45,15 @@ public class ListFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(linearLayoutManager);
         mCoordinatorLayout = (CoordinatorLayout)view.findViewById(R.id.coordinator_layout);
+
         initialiseAdapter();
         return view;
-
     }
 
     private void initialiseAdapter(){
-
         mVenuesAdapter = new VenuesAdapter(sClientSingleton.getVenueList(), getActivity());
         mRecyclerView.setAdapter(mVenuesAdapter);
         mVenuesAdapter.notifyDataSetChanged();
-
     }
 
     public void notifyAdapter(){
