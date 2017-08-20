@@ -48,6 +48,7 @@ public class ClientSingleton extends Application {
     private ImageLoader mImageLoader;
     private Context mContext;
 
+
     private ClientSingleton(Context context){
         mContext = context;
         mRequestQueue = getRequestQueue();

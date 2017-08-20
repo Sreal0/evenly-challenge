@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">Evenly Challenge</string>
-    <string name="distance">Distance to evenly HQ -> </string>
+    <string name="distance">Distance -> </string>
     <string name="name">Venue name</string>
     <string name="category">Venue Category</string>
     <string name="address">Venue Address</string>
+    <string name="maps_api_key">AIzaSyAVlJa5Ww_cUZ2-q2zcWIs5v9fatAQSx-A</string>
 </resources>

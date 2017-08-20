@@ -1,15 +1,19 @@
 package com.santos.android.evenlychallenge.RecyclerView;
 
 import android.content.Context;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.santos.android.evenlychallenge.API.ClientSingleton;
 import com.santos.android.evenlychallenge.API.Venue;
+import com.santos.android.evenlychallenge.Activity.ChallengeLauncherActivity;
+import com.santos.android.evenlychallenge.Fragments.VenueDetailsFragment;
 import com.santos.android.evenlychallenge.R;
 import java.util.List;
 
@@ -66,6 +70,13 @@ public class VenuesAdapter extends RecyclerView.Adapter<VenuesAdapter.VenueViewH
             mVenueCategory = (TextView)itemView.findViewById(R.id.txt_venue_category);
             mVenueAddress = (TextView)itemView.findViewById(R.id.txt_venue_address);
             mVenueDistance = (TextView)itemView.findViewById(R.id.txt_distance);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ((ChallengeLauncherActivity)mContext).startDetailsFragment();
+
+                }
+            });
         }
 
         private void bindItem(Venue venue){
